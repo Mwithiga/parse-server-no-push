@@ -9,7 +9,6 @@ import * as SchemaMigrations from './SchemaMigrations/Migrations';
 import AuthAdapter from './Adapters/Auth/AuthAdapter';
 import { useExternal } from './deprecated';
 import { getLogger } from './logger';
-import { PushWorker } from './Push/PushWorker';
 import { ParseServerOptions } from './Options';
 import { ParseGraphQLServer } from './GraphQL/ParseGraphQLServer';
 
@@ -39,7 +38,6 @@ export {
   RedisCacheAdapter,
   LRUCacheAdapter,
   TestUtils,
-  PushWorker,
   ParseGraphQLServer,
   _ParseServer as ParseServer,
   SchemaMigrations,
