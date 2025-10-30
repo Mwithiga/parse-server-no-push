@@ -160,7 +160,7 @@ class ParseServer {
           throw e;
         }
       }
-      const pushController = await controllers.getPushController(this.config);
+      // const pushController = await controllers.getPushController(this.config);
       await hooksController.load();
       const startupPromises = [];
       if (schema) {
@@ -197,7 +197,8 @@ class ParseServer {
         new CheckRunner(security).run();
       }
       this.config.state = 'ok';
-      this.config = { ...this.config, ...pushController };
+      // this.config = { ...this.config, ...pushController };
+      this.config = { ...this.config};
       Config.put(this.config);
       return this;
     } catch (error) {

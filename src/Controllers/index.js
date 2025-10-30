@@ -10,9 +10,9 @@ import { UserController } from './UserController';
 import { CacheController } from './CacheController';
 import { LiveQueryController } from './LiveQueryController';
 import { AnalyticsController } from './AnalyticsController';
-import { PushController } from './PushController';
-import { PushQueue } from '../Push/PushQueue';
-import { PushWorker } from '../Push/PushWorker';
+// import { PushController } from './PushController';
+// import { PushQueue } from '../Push/PushQueue';
+// import { PushWorker } from '../Push/PushWorker';
 import DatabaseController from './DatabaseController';
 
 // Adapters
@@ -162,50 +162,50 @@ export function getHooksController(
   return new HooksController(appId, databaseController, webhookKey);
 }
 
-interface PushControlling {
-  pushController: PushController;
-  hasPushScheduledSupport: boolean;
-  pushControllerQueue: PushQueue;
-  pushWorker: PushWorker;
-}
+// interface PushControlling {
+//   pushController: PushController;
+//   hasPushScheduledSupport: boolean;
+//   pushControllerQueue: PushQueue;
+//   pushWorker: PushWorker;
+// }
 
-export async function getPushController(options: ParseServerOptions): PushControlling {
-  const { scheduledPush, push } = options;
+// export async function getPushController(options: ParseServerOptions): PushControlling {
+//   const { scheduledPush, push } = options;
 
-  const pushOptions = Object.assign({}, push);
-  const pushQueueOptions = pushOptions.queueOptions || {};
-  if (pushOptions.queueOptions) {
-    delete pushOptions.queueOptions;
-  }
+//   const pushOptions = Object.assign({}, push);
+//   const pushQueueOptions = pushOptions.queueOptions || {};
+//   if (pushOptions.queueOptions) {
+//     delete pushOptions.queueOptions;
+//   }
 
-  // Pass the push options too as it works with the default
-  const ParsePushAdapter = await loadModule('@parse/push-adapter');
-  const pushAdapter = loadAdapter(
-    pushOptions && pushOptions.adapter,
-    ParsePushAdapter,
-    pushOptions
-  );
-  // We pass the options and the base class for the adatper,
-  // Note that passing an instance would work too
-  const pushController = new PushController();
-  const hasPushSupport = !!(pushAdapter && push);
-  const hasPushScheduledSupport = hasPushSupport && scheduledPush === true;
+//   // Pass the push options too as it works with the default
+//   const ParsePushAdapter = await loadModule('@parse/push-adapter');
+//   const pushAdapter = loadAdapter(
+//     pushOptions && pushOptions.adapter,
+//     ParsePushAdapter,
+//     pushOptions
+//   );
+//   // We pass the options and the base class for the adatper,
+//   // Note that passing an instance would work too
+//   const pushController = new PushController();
+//   const hasPushSupport = !!(pushAdapter && push);
+//   const hasPushScheduledSupport = hasPushSupport && scheduledPush === true;
 
-  const { disablePushWorker } = pushQueueOptions;
+//   const { disablePushWorker } = pushQueueOptions;
 
-  const pushControllerQueue = new PushQueue(pushQueueOptions);
-  let pushWorker;
-  if (!disablePushWorker) {
-    pushWorker = new PushWorker(pushAdapter, pushQueueOptions);
-  }
-  return {
-    pushController,
-    hasPushSupport,
-    hasPushScheduledSupport,
-    pushControllerQueue,
-    pushWorker,
-  };
-}
+//   const pushControllerQueue = new PushQueue(pushQueueOptions);
+//   let pushWorker;
+//   if (!disablePushWorker) {
+//     pushWorker = new PushWorker(pushAdapter, pushQueueOptions);
+//   }
+//   return {
+//     pushController,
+//     hasPushSupport,
+//     hasPushScheduledSupport,
+//     pushControllerQueue,
+//     pushWorker,
+//   };
+// }
 
 export function getAuthDataManager(options: ParseServerOptions) {
   const { auth, enableAnonymousUsers } = options;
