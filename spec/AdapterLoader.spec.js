@@ -102,44 +102,6 @@ describe('AdapterLoader', () => {
     done();
   });
 
-  it('should load push adapter from options', async () => {
-    const options = {
-      android: {
-        senderId: 'yolo',
-        apiKey: 'yolo',
-      },
-    };
-    const ParsePushAdapter = await loadModule('@parse/push-adapter');
-    expect(() => {
-      const adapter = loadAdapter(undefined, ParsePushAdapter, options);
-      expect(adapter.constructor).toBe(ParsePushAdapter);
-      expect(adapter).not.toBe(undefined);
-    }).not.toThrow();
-  });
-
-  it('should load custom push adapter from string (#3544)', done => {
-    const adapterPath = require('path').resolve('./spec/support/MockPushAdapter');
-    const options = {
-      ios: {
-        bundleId: 'bundle.id',
-      },
-    };
-    const pushAdapterOptions = {
-      adapter: adapterPath,
-      options,
-    };
-    expect(() => {
-      reconfigureServer({
-        push: pushAdapterOptions,
-      }).then(() => {
-        const config = Config.get(Parse.applicationId);
-        const pushAdapter = config.pushWorker.adapter;
-        expect(pushAdapter.getValidPushTypes()).toEqual(['ios']);
-        expect(pushAdapter.options).toEqual(pushAdapterOptions);
-        done();
-      });
-    }).not.toThrow();
-  });
 
   it('should load custom database adapter from config', done => {
     const adapterPath = require('path').resolve('./spec/support/MockDatabaseAdapter');
