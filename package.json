@@ -106,7 +106,7 @@
     "prettier": "2.0.5",
     "semantic-release": "24.2.0",
     "winston-transport": "^4.9.0",
-    "yaml": "2.6.1"
+    "yaml": "2.8.1"
   },
   "scripts": {
     "ci:check": "node ./ci/ciCheck.js",
